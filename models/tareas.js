@@ -31,8 +31,8 @@ class Tareas {
   }
 
   listadoCompleto() {
-    console.log();
     //El forEach ya tiene un indce en el segundo argumento, el cual empieza desde 0
+    console.log();
     this.listadoArr.forEach((tarea, i) => {
       const idx = `${i + 1}`.green;
       const { desc, completadoEn } = tarea;
@@ -40,13 +40,31 @@ class Tareas {
 
       console.log(`${idx} ${desc} :: ${estado}`);
     });
-    // for (const tareas of this.listadoArr) {
-    //   if (tareas.completadoEn !== null) {
-    //     console.log(`${tareas.desc} :: ${"COMPLETADO".green}`);
-    //   } else {
-    //     console.log(`${tareas.desc} :: ${"PENDIENTE".red}`);
-    //   }
-    // }
+  }
+
+  listarPendientesCompletadas(completadas = true) {
+    console.log();
+    let contador = 0;
+    this.listadoArr.forEach((tarea) => {
+      const { desc, completadoEn } = tarea;
+      const estado = completadoEn ? "Completada".green : "Pendiente".red;
+
+      if (completadas) {
+        if (completadoEn) {
+          contador += 1;
+          console.log(
+            `${contador.toString().green + ".".green} ${desc} :: ${estado}`
+          );
+        }
+      } else {
+        if (!completadoEn) {
+          contador += 1;
+          console.log(
+            `${contador.toString().red + ".".red} ${desc} :: ${estado}`
+          );
+        }
+      }
+    });
   }
 }
 
